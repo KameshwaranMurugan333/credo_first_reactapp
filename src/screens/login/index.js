@@ -1,30 +1,36 @@
 import React from "react";
-import { Button, Input, TextHeader } from "../../components";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { ThemeContext } from "../../contexts";
 
-export const LoginScreen = (props) =>{
+export const LoginScreen = (props) => {
 
-    const [state,setState] = React.useState({email:'',password:''});
-
-    const updateEmail = (email) => setState({...state,email});
-
-    const updatePassword = (password) => setState({...state,password});
+    const [state, setState] = React.useState({ email: '', password: '' });
 
     const onSubmit = () => alert("Welcome");
 
+    const themeContext = React.useContext(ThemeContext);
+
     return <div>
-        <TextHeader title="My Company" subTitle="Login" />
-        <Input 
-            id={"email"} 
-            value={state.email}
-            onChange={updateEmail}
-            type="text"
-        />
-        <Input 
-            id={"password"} 
-            value={state.password}
-            onChange={updatePassword}
-            type="password"
-        />
-        <Button id={"login_btn"} btnName="Login" onClick={onSubmit} />
+        <Form>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Email address</Form.Label>
+                <Form.Control type="email" placeholder="Enter email" value={themeContext.currentTheme} />
+                <Form.Text className="text-muted">
+                   {props.message}
+                </Form.Text>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Form.Check type="checkbox" label="Check me out" />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+                Submit
+            </Button>
+        </Form>
     </div>
 }
