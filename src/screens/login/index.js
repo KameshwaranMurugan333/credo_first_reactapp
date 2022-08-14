@@ -1,7 +1,6 @@
 import React from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { ThemeContext } from "../../contexts";
 
 export const LoginScreen = (props) => {
 
@@ -9,13 +8,14 @@ export const LoginScreen = (props) => {
 
     // const onSubmit = () => alert("Welcome");
 
-    const themeContext = React.useContext(ThemeContext);
+    const condition = false;
+    const trueContent = <p>I am true</p>;
+    const falseContent = <p>{"{ message: 'I am true'}"}</p>;
 
     return <div>
-        <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" value={themeContext.currentTheme} />
+                <Form.Control type="email" placeholder="Enter email" />
                 <Form.Text className="text-muted">
                    {props.message}
                 </Form.Text>
@@ -28,9 +28,9 @@ export const LoginScreen = (props) => {
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
                 <Form.Check type="checkbox" label="Check me out" />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            {condition? trueContent : falseContent}
+            <Button variant="primary" type="submit" onClick={(e)=>e.traget.findAll()}>
                 Submit
             </Button>
-        </Form>
     </div>
 }

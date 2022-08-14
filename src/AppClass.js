@@ -1,5 +1,5 @@
 import React from "react";
-import './App.css';
+import { LoginScreen } from './screens';
 
 class MyApp extends React.Component {
   constructor(props) {
@@ -7,23 +7,26 @@ class MyApp extends React.Component {
     this.state = {
       date: "",
       array: [],
-      showRedText: false
+      showRedText: false,
+      isError: false,
+      error:"",
+      errorInfo: ""
     };
 
   }
 
-  // Rarely Used
-  static getDerivedStateFromProps(props, state) {
-
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-
-    return true;
-  }
-
   componentDidUpdate(prevProps, prevState, snaphot) {
 
+  }
+
+  componentDidCatch(error, errorInfo){
+    console.log("Error:",error);
+    console.log('errorInfo:', errorInfo);
+    this.setState({
+      isError:true,
+      errorInfo,
+      error
+    })
   }
 
   componentDidMount() {
@@ -53,18 +56,21 @@ class MyApp extends React.Component {
 
   render() {
 
+    if(this.state.isError){
+      return <div>
+        <p>500 Opps!</p>
+        <p>Something went wrong, Try again</p>
+        <p>Error </p>
+        <pre>{JSON.stringify(this.state.error,null,2)}</pre>
+        <p>Error Info</p>
+        <pre>{JSON.stringify(this.state.errorInfo,null,2)}</pre>
+      </div>
+    }
+
     return (
       <div className="App">
         <header className="App-header">
-          <p>{this.state.date}</p>
-          <button onClick={this.changeDate} >currentDate</button>
-          <p>{this.state.array.toString()}</p>
-
-          <button onClick={this.toogleRedText}>Toogle Me to Open Red Text</button>
-          {this.state.showRedText === true && <p style={{ color: "red" }}>I am Red Text</p>}
-          {this.state.showRedText === true 
-            ? <p style={{ color: "red" }}>I am Red Text</p>
-            : <p style={{ color: "green" }}>I am Green Text</p>}
+          <LoginScreen />
         </header>
       </div>
     );
