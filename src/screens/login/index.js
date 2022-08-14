@@ -5,9 +5,9 @@ import { ThemeContext } from "../../contexts";
 
 export const LoginScreen = (props) => {
 
-    const [state, setState] = React.useState({ email: '', password: '' });
+    // const [state, setState] = React.useState({ email: '', password: '' });
 
-    const onSubmit = () => alert("Welcome");
+    // const onSubmit = () => alert("Welcome");
 
     const themeContext = React.useContext(ThemeContext);
 
